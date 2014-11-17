@@ -1,10 +1,12 @@
 currency-converter
 ==================
 
-The PHP class for currency conversion, working with www.freecurrencyconverterapi.com
+<p>The PHP class for currency conversion, working with www.freecurrencyconverterapi.com</p>
 
-In CurrencyConverter class avaiable methods:
-  getRate(from_currency, to_currency) - get the currency rate;
-  convert(from_currency, to_currency, amount) - convert amount;
-  getCurrencies() - get list of available currencies;
-  getCountries() - get list of available countries;
+<p>In <b>CurrencyConverter</b> class avaiable methods:</p>
+<ul>
+  <li><b>getRate(from_currency, to_currency)</b> - Get the currency rate;</li>
+  <li><b>convert(from_currency, to_currency, amount)</b> - Convert amount;</li>
+  <li><b>getCurrencies()</b> - Get list of available currencies;</li>
+  <li><b>getCountries()</b> - Get list of available countries;</li>
+<ul>
