@@ -1,18 +1,16 @@
 <?php 
 
-class CurrencyConverter {
+class ConverterFreeApi extends CurrencyConverter {
 
 	const API_HOST = "http://www.freecurrencyconverterapi.com/api/v2/";
 
 	private static $_countries  = array();
 	private static $_currencies = array();
 
-	private static $_rates 		= array();
-
 	public function getRate($from_currency, $to_currency)
-	{
-		$rate_key = $from_currency."_".$to_currency;
-		if (!isset(self::$_rates[$rate_key])) {
+	{		
+		if (is_null($this->_getRateFromCache($from_currency, $to_currency))) {
+			$rate_key = $from_currency."_".$to_currency;
 			$response = $this->_makeRequest(
 				"convert", 
 				array("q" => $rate_key, "compact" => "y")
@@ -20,10 +18,10 @@ class CurrencyConverter {
 			if (!isset($response[$rate_key])) {
 				throw new Exception("Wrong API response format", 1);
 			}
-			self::$_rates[$rate_key] = $response[$rate_key]["val"];
+			$this->_setRateInCache($from_currency, $to_currency, $response[$rate_key]["val"]);
 		}
 
-		return self::$_rates[$rate_key];
+		return $this->_getRateFromCache($from_currency, $to_currency);
 	}
 
 	public function convert($from_currency, $to_currency, $amount)
@@ -85,4 +83,5 @@ class CurrencyConverter {
 		return json_decode($response, true);
 	}
 
-}
+} 
+

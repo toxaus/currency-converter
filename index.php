@@ -1,18 +1,17 @@
 <?php 
 
-require "CurrencyConverter.php";
+require "CurrencyConverter/CurrencyConverter.php";
 
-$conveter = new CurrencyConverter();
+$conveter = CurrencyConverter::getInstance(CurrencyConverter::CONVERTER_FREE_API);
 
-//echo "Get countries: <br />";
-//printf('<pre>%s</pre>', print_r($conveter->getCountries(), true));
+if ($conveter instanceof CurrencyConverter) {
 
-//echo "Get curencies: <br />";
-//printf('<pre>%s</pre>', print_r($conveter->getCurrencies(), true));
+	// Get rate
+	echo $conveter->getRate("USD", "EUR"). "<br />";
 
-echo "Get rate: <br />";
-printf('<pre></pre>', print_r($conveter->getRate("EUR", "USD")));
+	// Convert
+	echo $conveter->convert("USD", "EUR", 12.5). "<br />";	
 
-echo "Convert value: <br />";
-printf('<pre></pre>', print_r($conveter->convert("EUR", "USD", 10)));
+}
+
 
