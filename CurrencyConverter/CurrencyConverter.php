@@ -3,6 +3,7 @@
 abstract class CurrencyConverter {
 
 	const CONVERTER_FREE_API = "ConverterFreeApi";
+	const CONVERTER_YAHOO_API = "ConverterYahooApi";
 
 	protected static $_rates = array();
 	protected static $_instances = array();
@@ -16,7 +17,7 @@ abstract class CurrencyConverter {
 		} else {
 			$file_path = dirname(__FILE__). DIRECTORY_SEPARATOR. "Converters". DIRECTORY_SEPARATOR;
 			if (
-				in_array($converter, array(self::CONVERTER_FREE_API))
+				in_array($converter, array(self::CONVERTER_FREE_API, self::CONVERTER_YAHOO_API))
 			) {
 				$file_path .= $converter. ".php";
 			} else {
