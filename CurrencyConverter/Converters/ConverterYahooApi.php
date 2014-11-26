@@ -4,13 +4,6 @@ class ConverterYahooApi extends CurrencyConverter {
 
 	const API_HOST = "https://query.yahooapis.com/v1/public/yql";
 
-	public function convert($from_currency, $to_currency, $amount)
-	{
-		$rate = $this->getRate($from_currency, $to_currency);
-
-		return $amount * $rate;
-	}
-
 	public function getRate($from_currency, $to_currency)
 	{
 		if (is_null($this->_getRateFromCache($from_currency, $to_currency))) {

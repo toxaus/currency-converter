@@ -24,13 +24,6 @@ class ConverterFreeApi extends CurrencyConverter {
 		return $this->_getRateFromCache($from_currency, $to_currency);
 	}
 
-	public function convert($from_currency, $to_currency, $amount)
-	{
-		$rate = $this->getRate($from_currency, $to_currency);
-
-		return $amount * $rate;
-	}
-
 	public function getCurrencies()
 	{
 		if (empty(self::$_currencies)) {

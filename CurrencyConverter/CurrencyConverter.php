@@ -4,6 +4,7 @@ abstract class CurrencyConverter {
 
 	const CONVERTER_FREE_API = "ConverterFreeApi";
 	const CONVERTER_YAHOO_API = "ConverterYahooApi";
+	const CONVERTER_FIXER_IO_API = "ConverterFixerIOApi";
 
 	protected static $_rates = array();
 	protected static $_instances = array();
@@ -17,7 +18,10 @@ abstract class CurrencyConverter {
 		} else {
 			$file_path = dirname(__FILE__). DIRECTORY_SEPARATOR. "Converters". DIRECTORY_SEPARATOR;
 			if (
-				in_array($converter, array(self::CONVERTER_FREE_API, self::CONVERTER_YAHOO_API))
+				in_array(
+					$converter, 
+					array(self::CONVERTER_FREE_API, self::CONVERTER_YAHOO_API, self::CONVERTER_FIXER_IO_API)
+				)
 			) {
 				$file_path .= $converter. ".php";
 			} else {
@@ -40,7 +44,12 @@ abstract class CurrencyConverter {
 		return print_r(self::$_rates[$this->_converter_type], true);
 	}
 
-	abstract public function convert($from_currency, $to_currency, $amount);
+	public function convert($from_currency, $to_currency, $amount) 
+	{
+		$rate = $this->getRate($from_currency, $to_currency);
+
+		return $amount * $rate;
+	}
 
 	abstract public function getRate($from_currency, $to_currency);
 
@@ -51,6 +60,7 @@ abstract class CurrencyConverter {
 
 	protected function _setRateInCache($from_currency, $to_currency, $rate)
 	{
+
 		self::$_rates[$this->_converter_type][$from_currency."_".$to_currency] = $rate;
 	}
 
