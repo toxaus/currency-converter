@@ -1,5 +1,7 @@
 <?php
 
+namespace Converters;
+
 use CurrencyConverter\Converter;
 use CurrencyConverter\ConverterException;
 
