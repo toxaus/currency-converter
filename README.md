@@ -1,4 +1,4 @@
-currency-converter
+Currency Converter
 ==================
 Get currency exchange rates & convert amount between currencies in ISO Alpha 3 format.
 There are some popular API was implemented.
@@ -6,6 +6,7 @@ There are some popular API was implemented.
  - Free (details http://www.freecurrencyconverterapi.com);
  - fixer.io (details http://fixer.io/).
 
+<i>Notice: All currencies must be passed in ISO Alpha 3 format (ex. "USD" for American Dollar)</i>
 For get currency rates:
 <pre>
   $converter = new Yahoo();
@@ -16,4 +17,3 @@ For convert amount:
   $converter = new Yahoo();
   $converter->convert("USD", "EUR", 10);
 </pre>
-<i>Notice: All currencies must be passed in ISO Alpha 3 format (ex. "USD" for American Dollar)</i>
