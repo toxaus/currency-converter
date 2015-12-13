@@ -1,6 +1,7 @@
 <?php
 
-namespace Converters;
+namespace CurrencyConverter\Converters;
+
 
 use CurrencyConverter\Converter;
 use CurrencyConverter\ConverterException;
@@ -10,6 +11,9 @@ class FixerIO extends Converter
 
     public function rate($from, $to)
     {
+        if ($from == $to) {
+            return 1;
+        }
         $response = $this->send($from);
         if (!is_array($response) || !array_key_exists("rates", $response)) {
             throw new ConverterException("Wrong API response structure");
