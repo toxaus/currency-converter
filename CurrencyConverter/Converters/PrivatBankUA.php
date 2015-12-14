@@ -7,11 +7,11 @@ use \CurrencyConverter\ConverterException;
 
 class PrivatBankUA extends Converter
 {
-    /* Different request formats */
+    // Different request formats
     const PB_FORMAT_JSON = 'json';
     const PB_FORMAT_XML = 'xml';
 
-    /* Different currency rates */
+    //Different currency rates
     const PB_RATE_CACHE = '5';
     const PB_RATE_CARDS = '11';
 
