@@ -7,11 +7,12 @@ use \CurrencyConverter\ConverterException;
 
 class PrivatBankUA extends Converter
 {
+    
     // Different request formats
     const PB_FORMAT_JSON = 'json';
     const PB_FORMAT_XML = 'xml';
 
-    //Different currency rates
+    // Different currency rates
     const PB_RATE_CACHE = '5';
     const PB_RATE_CARDS = '11';
 
@@ -20,16 +21,10 @@ class PrivatBankUA extends Converter
 
     private $url = 'https://api.privatbank.ua/p24api/pubinfo?exchange&%s&coursid=%s';
 
-
     public function __construct()
     {
-        $this->url = sprintf(
-           $this->url,
-           self::$format,
-           self::$rate
-           );
+        $this->url = sprintf($this->url, self::$format, self::$rate);
     }
-
 
     public function rate($from, $to)
     {
@@ -41,9 +36,7 @@ class PrivatBankUA extends Converter
             throw new ConverterException('Wrong API response structure');
         }
         $currencyRates = $this->makeCurrencyRates($responseArray);
-        if (array_key_exists($from, $currencyRates)
-           && array_key_exists($to, $currencyRates[$from])
-        ) {
+        if (isset($currencyRates[$from]) && isset($currencyRates[$from][$to])) {
             $rate = $currencyRates[$from][$to];
         } else {
             throw new ConverterException("Can not find rate for {$from} to {$to}");
@@ -58,23 +51,23 @@ class PrivatBankUA extends Converter
 
         $response = file_get_contents($this->url);
         if (empty($response)) {
-            throw new ConverterException("API connection failed");
+            throw new ConverterException('API connection failed');
         }
 
         return json_decode($response, true);
     }
 
-    private function makeCurrencyRates(Array $responseArray)
+    private function makeCurrencyRates(array $responseArray)
     {
         $currencyRates = array();
 
         foreach ($responseArray as $oneRate) {
-            if (!array_key_exists($oneRate['base_ccy'], $currencyRates)) {
+            if (!isset($currencyRates[$oneRate['base_ccy']])) {
                 $currencyRates[$oneRate['base_ccy']] = array(
                    $oneRate['base_ccy'] => 1,
                 );
             }
-            if (!array_key_exists($oneRate['ccy'], $currencyRates)) {
+            if (!isset($currencyRates[$oneRate['ccy']])) {
                 $currencyRates[$oneRate['ccy']] = array(
                    $oneRate['ccy'] => 1,
                 );
