@@ -14,5 +14,4 @@ class ConverterTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(10, $converter->convert("USD", "USD", 10));
     }
-
 }
