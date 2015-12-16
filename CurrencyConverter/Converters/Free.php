@@ -16,6 +16,9 @@ class Free extends Converter
     public function __construct($api_key = self::API_KEY)
     {
         $this->current_api_key = $api_key;
+        if (is_null($this->current_api_key)) {
+            throw new ConverterException('Provider API key not be null');
+        }
     }
 
     public function rate($from, $to)
